@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f2f2f7">
+<meta name="color-scheme" content="light dark">
+<title>Real You – Lagu sesuai kepribadianmu</title>
+<style>
+:root{--bg:#f2f2f7;--card:#fff;--ink:#000;--mut:#8e8e93;--line:rgba(60,60,67,.18);--fill:#e9e9ee;--g:#168a40;--g2:#0b5f2a;--blur:rgba(249,249,250,.85);
+--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+@media(prefers-color-scheme:dark){:root{--bg:#000;--card:#1c1c1e;--ink:#fff;--fill:#2c2c2e;--line:rgba(84,84,88,.5);--blur:rgba(22,22,24,.85)}}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:100vh;
+background-image:radial-gradient(70% 40% at 50% 0,rgba(29,185,84,.16),transparent)}
+button,input{font:inherit;color:inherit;border:0;background:none;outline:0}
+button{cursor:pointer}
+.app{max-width:520px;margin:0 auto;padding:0 20px calc(120px + env(safe-area-inset-bottom))}
+.nav{position:sticky;top:0;z-index:5;height:calc(48px + env(safe-area-inset-top));padding-top:env(safe-area-inset-top);margin:0 -20px;padding-left:20px;padding-right:20px;display:flex;align-items:center;justify-content:space-between;background:var(--blur);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-bottom:.5px solid var(--line)}
+.back{color:var(--g);font-size:17px;display:none}
+.nav small{font-weight:600;font-size:17px}
+h1{font-size:34px;font-weight:800;letter-spacing:-.7px;line-height:1.1;margin:18px 0 6px}
+.sub{color:var(--mut);font-size:16px;line-height:1.4;margin-bottom:6px}
+.lbl{font-size:13px;color:var(--mut);text-transform:uppercase;letter-spacing:.3px;margin:26px 16px 8px}
+.card{background:var(--card);border-radius:14px;overflow:hidden}
+.tin{width:100%;text-align:center;font-size:44px;font-weight:800;letter-spacing:10px;padding:18px 0 18px 10px;text-transform:uppercase}
+.tin::placeholder{color:var(--fill);letter-spacing:10px}
+.ax{display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:.5px solid var(--line)}
+.ax span{flex:1;font-size:15px}
+.seg{display:flex;background:var(--fill);border-radius:9px;padding:2px;width:176px}
+.seg button{flex:1;height:30px;border-radius:7px;font-size:13px;font-weight:500;transition:.2s}
+.seg button.on{background:var(--card);box-shadow:0 2px 6px rgba(0,0,0,.18);font-weight:600}
+@media(prefers-color-scheme:dark){.seg button.on{background:#636366}}
+.info{padding:14px 16px;border-top:.5px solid var(--line);font-size:15px;line-height:1.4;min-height:62px}
+.info b{font-size:17px}.info em{color:var(--mut);font-style:normal;display:block}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:9px 16px;border-radius:20px;background:var(--card);font-size:15px;font-weight:500;transition:.15s}
+.chip.on{background:var(--g);color:#fff}
+.chip:active{transform:scale(.95)}
+.bar{position:fixed;left:0;right:0;bottom:0;padding:12px 20px calc(14px + env(safe-area-inset-bottom));background:var(--blur);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-top:.5px solid var(--line);z-index:6}
+.bar>div{max-width:520px;margin:0 auto;display:flex;gap:10px}
+.btn{flex:1;height:50px;border-radius:14px;background:var(--g);color:#fff;font-size:17px;font-weight:600;transition:.15s}
+.btn:active{opacity:.7;transform:scale(.98)}
+.btn.sec{background:var(--fill);color:var(--g);flex:none;padding:0 18px}
+.btn[disabled]{opacity:.4}
+.hero{display:flex;align-items:center;gap:14px;margin:16px 0 4px}
+.big{font-size:44px;font-weight:800;letter-spacing:4px}
+.row{display:flex;align-items:center;gap:12px;padding:0 16px;height:62px;cursor:pointer;text-decoration:none;color:inherit}
+.row:active{background:var(--fill)}
+.art{width:46px;height:46px;border-radius:6px;flex:none;display:grid;place-items:center;color:#fff;font-weight:800;font-size:18px;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.rb{flex:1;min-width:0;height:62px;display:flex;flex-direction:column;justify-content:center;border-bottom:.5px solid var(--line)}
+.row:last-child .rb{border:0}
+.rt,.rs{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rt{font-size:16px}.rs{font-size:14px;color:var(--mut);margin-top:1px}
+.tag{font-size:11px;color:var(--mut);flex:none}
+.toast{position:fixed;left:20px;right:20px;top:calc(60px + env(safe-area-inset-top));max-width:480px;margin:auto;z-index:20;padding:12px 16px;border-radius:14px;background:rgba(40,40,44,.96);color:#fff;font-size:14px;line-height:1.4;opacity:0;transform:translateY(-10px);pointer-events:none;transition:.3s}
+.toast.show{opacity:1;transform:none}
+details{margin-top:28px;font-size:13px;color:var(--mut);line-height:1.5}
+summary{cursor:pointer;margin-left:16px}
+details ol{padding:10px 16px 0 36px}code{background:var(--fill);padding:1px 5px;border-radius:4px;word-break:break-all}
+.hide{display:none}
+
+body{background-image:radial-gradient(60% 35% at 12% 0,rgba(22,138,64,.24),transparent),radial-gradient(50% 30% at 100% 10%,rgba(255,170,90,.22),transparent)}
+.card{border-radius:22px;box-shadow:0 2px 14px rgba(0,0,0,.05)}
+.gr{color:var(--g)}
+.chip{padding:10px 16px;border-radius:22px;box-shadow:0 1px 6px rgba(0,0,0,.06);transition:.25s cubic-bezier(.3,1.6,.5,1)}
+.chip.on{background:linear-gradient(135deg,var(--g),var(--g2));transform:scale(1.06)}
+.btn{background:linear-gradient(135deg,var(--g),var(--g2));border-radius:18px;box-shadow:0 6px 18px rgba(22,138,64,.35)}
+.btn.sec{background:var(--fill);box-shadow:none}
+.conn{display:flex;align-items:center;gap:12px;margin-top:16px;padding:14px 16px;border-radius:22px;background:var(--card);box-shadow:0 2px 14px rgba(0,0,0,.05);transition:.3s}
+.conn div{flex:1;min-width:0}.conn b{display:block;font-size:16px}.conn em{font-style:normal;font-size:13px;color:var(--mut)}
+.conn button{background:var(--g);color:#fff;padding:9px 16px;border-radius:18px;font-size:14px;font-weight:600}
+.conn.ok{background:rgba(22,138,64,.14)}.conn.ok button{background:var(--fill);color:var(--ink)}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;padding:14px 16px;background:var(--card);border-radius:20px;font-size:15px}
+.sw input{appearance:none;-webkit-appearance:none;width:51px;height:31px;border-radius:16px;background:#c7c7cc;position:relative;transition:.25s;flex:none;cursor:pointer}
+.sw input:after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.3);transition:.25s cubic-bezier(.3,1.5,.5,1)}
+.sw input:checked{background:var(--g)}.sw input:checked:after{left:22px}
+.hero{display:block;position:relative;overflow:hidden;margin:16px 0 4px;padding:22px;border-radius:28px;background:linear-gradient(140deg,#168a40,#0b5f2a 65%,#073a1b);color:#fff;box-shadow:0 10px 28px rgba(11,95,42,.35)}
+.hero:after{content:"";position:absolute;right:-40px;top:-50px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.12)}
+.big{font-size:48px;font-weight:800;letter-spacing:5px}.hd{opacity:.85;font-size:15px;line-height:1.4;margin-top:4px;position:relative}
+@keyframes pop{from{opacity:0;transform:translateY(12px)}}
+.row{animation:pop .45s cubic-bezier(.2,.9,.3,1) both}
+.art{position:relative;overflow:hidden;background-size:cover;background-position:center;width:52px;height:52px;border-radius:12px}
+.pl{position:absolute;inset:0;display:none;place-items:center;background:rgba(0,0,0,.3)}
+.row.can .pl{display:grid}
+.pl .ic{width:24px;height:24px;fill:#fff}.pl .eq{display:none;gap:2.5px;align-items:center;height:16px}
+.eq i{width:3px;height:100%;background:#fff;border-radius:2px;animation:eq .7s ease-in-out infinite alternate}
+.eq i:nth-child(2){animation-duration:.5s}.eq i:nth-child(3){animation-duration:.9s}
+@keyframes eq{from{transform:scaleY(.25)}}
+.row.playing .ic{display:none}.row.playing .eq{display:flex}.row.playing .rt{color:var(--g);font-weight:600}
+.sp{color:var(--g);font-size:20px;padding:8px;text-decoration:none;flex:none;font-weight:700}
+.hide{display:none!important}
+
+html{-webkit-text-size-adjust:100%}
+body{min-height:100dvh}
+button{touch-action:manipulation}
+button:focus-visible,input:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+*{scrollbar-width:thin}
+.more{display:block;width:100%;margin-top:14px;height:48px;border-radius:16px;background:var(--card);color:var(--g);font-weight:600;font-size:16px;box-shadow:0 1px 8px rgba(0,0,0,.05);transition:.15s}
+.more:active{transform:scale(.98)}
+@media(hover:hover){.row:hover{background:var(--fill)}.chip:hover{transform:translateY(-1px)}.btn:hover{filter:brightness(1.08)}.more:hover{background:var(--fill)}.back:hover{opacity:.7}}
+@media(max-width:380px){h1{font-size:30px}.seg{width:150px}.ax span{font-size:14px}.tin{font-size:38px;letter-spacing:6px}.big{font-size:40px}.btn{font-size:16px}}
+@media(min-width:760px){.app{max-width:640px;padding-left:28px;padding-right:28px}.nav{margin:0 -28px;padding-left:28px;padding-right:28px}h1{font-size:44px;margin-top:32px}.bar>div{max-width:640px}.seg{width:200px}}
+
+.empty{display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;min-height:440px;margin-top:22px;padding:30px;border-radius:28px;border:2px dashed var(--line);color:var(--mut);font-size:15px}
+.empty div{font-size:52px}.empty b{color:var(--ink);font-size:20px}
+@media(min-width:1000px){
+.app{max-width:1360px;padding:0 40px calc(110px + env(safe-area-inset-bottom));display:grid;grid-template-columns:minmax(380px,460px) minmax(0,1fr);column-gap:56px;align-items:start}
+.nav{position:static;grid-column:1/-1;margin:0 -40px;padding:0 40px;background:transparent;border:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+.back{display:none!important}
+#s1,#s2{display:block!important}
+#bar1{display:flex!important}
+h1{font-size:52px;margin-top:16px}
+#s2 .hero{margin-top:22px;padding:30px}.big{font-size:60px}.hd{font-size:17px}
+#s2:not(.has)>:not(.empty){display:none!important}
+#s2:not(.has) .empty{display:flex}
+.bar{display:grid;grid-template-columns:minmax(380px,460px) minmax(0,1fr);column-gap:56px;padding-left:max(40px,calc((100% - 1360px)/2 + 40px));padding-right:max(40px,calc((100% - 1360px)/2 + 40px))}
+.bar>div{max-width:none;margin:0}
+#list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:6px;padding:8px}
+.row{border-radius:16px}.rb{border:0}
+}
+
+.by{grid-column:1/-1;text-align:center;font-size:12px;letter-spacing:.4px;color:var(--mut);opacity:.5;margin-top:36px;user-select:none}
+.acts{display:flex;gap:10px;margin-top:10px}.acts .more{margin-top:0;width:auto;flex:1}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="nav"><button class="back" id="back">‹ Ubah pilihan</button><small id="ntitle">Real You</small><span style="width:40px"></span></div>
+
+<section id="s1">
+  <h1>Lagu yang <span class="gr">sefrekuensi</span><br>sama kamu 🎧</h1>
+  <p class="sub">Masukkan tipe MBTI-mu, pilih genre favorit, lalu kami racik playlist Spotify yang cocok.</p>
+  <div class="conn" id="conn"><div><b id="ct">Hubungkan Spotify</b><em id="cs">Opsional · playlist otomatis (khusus akun yang didaftarkan pemilik web)</em></div><button id="cb">Hubungkan</button></div>
+  <div class="lbl">Tipe MBTI</div>
+  <div class="card">
+    <input class="tin" id="tin" maxlength="4" placeholder="INFJ" autocomplete="off" aria-label="Tipe MBTI">
+    <div id="axes"></div>
+    <div class="info" id="info"></div>
+  </div>
+  <div class="lbl">Genre (boleh lebih dari satu)</div>
+  <div class="chips" id="chips"></div>
+  <label class="sw hide" id="autor"><span>Buat playlist otomatis setelah lagu ditemukan</span><input type="checkbox" id="auto" checked></label>
+  
+</section>
+
+<section id="s2" class="hide">
+  <div class="empty" id="empty"><div>🎧</div><b>Rekomendasimu muncul di sini</b><span>Pilih tipe MBTI dan genre, lalu klik “Cari lagu untukku”.</span></div>
+  <div class="hero"><div class="big" id="rtype"></div><div class="hd" id="rdesc"></div></div>
+  <div class="lbl" id="rlbl"></div>
+  <div class="card" id="list"></div>
+  <button class="more" id="more">+ Tambah lagu lagi</button>
+  <div class="acts"><button class="more" id="copy">Salin daftar lagu</button><button class="more" id="txt">Simpan .txt</button></div>
+</section>
+<footer class="by">by qilakirara</footer>
+</div>
+
+<div class="bar"><div id="bar1"><button class="btn" id="go">Cari lagu untukku</button></div>
+<div id="bar2" class="hide"><button class="btn sec" id="shuf">Acak</button><button class="btn" id="mk">Buat playlist Spotify</button></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const CLIENT_ID='c1e6a496a9c746c8a1b21ca398871bdf';
+const REDIRECT=location.origin+location.pathname;
+
+const AX=[['Energi','E','I','Extrovert','Introvert'],['Informasi','N','S','Intuitif','Sensing'],['Keputusan','F','T','Perasaan','Logika'],['Gaya hidup','P','J','Spontan','Terencana']];
+const TYPES={INTJ:['Sang Arsitek','Terstruktur, dalam, dan penuh visi'],INTP:['Sang Pemikir','Eksperimental dan penuh rasa ingin tahu'],ENTJ:['Sang Komandan','Bertenaga, ambisius, siap menang'],ENTP:['Sang Pendebat','Spontan, nyeleneh, penuh kejutan'],INFJ:['Sang Advokat','Sendu, bermakna, dan penuh perasaan'],INFP:['Sang Mediator','Melankolis, puitis, dan penuh mimpi'],ENFJ:['Sang Protagonis','Hangat, megah, bikin ikut bernyanyi'],ENFP:['Sang Juru Kampanye','Ceria, bebas, dan penuh warna'],ISTJ:['Sang Ahli Logistik','Klasik, rapi, dan bisa diandalkan'],ISFJ:['Sang Pembela','Lembut, nostalgia, dan menenangkan'],ESTJ:['Sang Eksekutif','Tegas, lantang, dan penuh semangat'],ESFJ:['Sang Konsul','Riang, populer, enak dinyanyikan bersama'],ISTP:['Sang Pengrajin','Dingin, minimalis, dan groovy'],ISFP:['Sang Petualang','Santai, hangat, dan estetik'],ESTP:['Sang Pengusaha','Berani, cepat, dan penuh adrenalin'],ESFP:['Sang Penghibur','Pesta, dance, dan kegembiraan']};
+const GN={pop:'Pop',indie:'Indie',rock:'Rock',rnb:'R&B',hiphop:'Hip-Hop',elektronik:'Elektronik',jazz:'Jazz',kpop:'K-Pop',indo:'Pop Indonesia'};
+
+/* Katalog: Judul|Artis|skor E-N-F-P (0 = I/S/T/J, 4 = E/N/F/P) */
+const RAW={
+pop:`Blinding Lights|The Weeknd|4233
+Levitating|Dua Lipa|4123
+Good as Hell|Lizzo|4133
+Someone Like You|Adele|1241
+Shape of You|Ed Sheeran|3123
+drivers license|Olivia Rodrigo|1342
+Anti-Hero|Taylor Swift|2342
+Viva La Vida|Coldplay|3331
+As It Was|Harry Styles|2333
+Flowers|Miley Cyrus|3132
+Happier Than Ever|Billie Eilish|1443`,
+indie:`Space Song|Beach House|0433
+Motion Sickness|Phoebe Bridgers|0342
+Skinny Love|Bon Iver|0342
+Mykonos|Fleet Foxes|1333
+Sweater Weather|The Neighbourhood|1233
+Float On|Modest Mouse|3223
+Do I Wanna Know?|Arctic Monkeys|1233
+Take Me Out|Franz Ferdinand|3113
+Heat Waves|Glass Animals|2333
+Ceilings|Lizzy McAlpine|0342
+Sofia|Clairo|1233`,
+rock:`Bohemian Rhapsody|Queen|3433
+Hotel California|Eagles|1422
+Smells Like Teen Spirit|Nirvana|3224
+Seven Nation Army|The White Stripes|2102
+Stairway to Heaven|Led Zeppelin|1431
+Mr. Brightside|The Killers|4133
+Back in Black|AC/DC|3012
+Wish You Were Here|Pink Floyd|0442
+Psycho Killer|Talking Heads|2303
+Karma Police|Radiohead|1422
+Everlong|Foo Fighters|3232`,
+rnb:`Thinkin Bout You|Frank Ocean|1343
+Redbone|Childish Gambino|2334
+Pink + White|Frank Ocean|1443
+Location|Khalid|2133
+Best Part|Daniel Caesar|1242
+Adorn|Miguel|2142
+Good Days|SZA|1343
+Glory Box|Portishead|1333
+Crazy in Love|Beyonce|4133
+Ordinary People|John Legend|1241
+Snooze|SZA|1343
+Superstition|Stevie Wonder|3112`,
+hiphop:`Lose Yourself|Eminem|3110
+HUMBLE.|Kendrick Lamar|3102
+Stronger|Kanye West|3211
+Juicy|The Notorious B.I.G.|3132
+N.Y. State of Mind|Nas|1311
+Alright|Kendrick Lamar|3332
+SICKO MODE|Travis Scott|4224
+Still D.R.E.|Dr. Dre|2012
+Hotline Bling|Drake|2243
+Money Trees|Kendrick Lamar|1343
+Sunflower|Post Malone|3133
+Lucid Dreams|Juice WRLD|1443`,
+elektronik:`Midnight City|M83|3433
+Around the World|Daft Punk|3102
+Strobe|deadmau5|1421
+Intro|The xx|0332
+Opus|Eric Prydz|3311
+Titanium|David Guetta|4132
+Weightless|Marconi Union|0422
+Nightcall|Kavinsky|2323
+Innerbloom|RUFUS DU SOL|1433
+One More Time|Daft Punk|4142
+Wake Me Up|Avicii|4331
+Sunset Lover|Petit Biscuit|1333
+Lean On|Major Lazer|4133
+Animals|Martin Garrix|4102`,
+jazz:`Take Five|Dave Brubeck|1311
+So What|Miles Davis|0413
+Fly Me to the Moon|Frank Sinatra|3131
+Feeling Good|Nina Simone|2343
+What a Wonderful World|Louis Armstrong|3241
+My Favorite Things|John Coltrane|1433
+La Vie en Rose|Edith Piaf|1242
+The Girl from Ipanema|Stan Getz|2132
+Blue in Green|Miles Davis|0443
+Georgia on My Mind|Ray Charles|1341
+Summertime|Ella Fitzgerald|1342
+Moondance|Van Morrison|2232`,
+kpop:`Dynamite|BTS|4133
+Spring Day|BTS|1342
+Love Dive|IVE|4233
+Hype Boy|NewJeans|3234
+Ditto|NewJeans|1342
+Through the Night|IU|0342
+How You Like That|BLACKPINK|4113
+Palette|IU|2333
+Gashina|Sunmi|3233
+DDU-DU DDU-DU|BLACKPINK|4113
+Blueming|IU|2233
+Next Level|aespa|4113
+Super Shy|NewJeans|3233`,
+indo:`Hati-Hati di Jalan|Tulus|1242
+Sempurna|Andra and The Backbone|2141
+Bertaut|Nadin Amizah|0442
+Rumah ke Rumah|Hindia|1443
+Dan|Sheila on 7|2142
+Sampai Jadi Debu|Banda Neira|0442
+Terlalu Lama Sendiri|Kunto Aji|0342
+Mungkin Nanti|Peterpan|1242
+Lathi|Weird Genius|3323
+Komang|Raim Laode|2141
+Kangen|Dewa 19|3242
+Mangu|Fourtwnty|1443`};
+const SONGS=Object.entries(RAW).flatMap(([g,t])=>t.split('\n').map(l=>{const[a,b,c]=l.split('|');return{t:a,a:b,g,v:[...c].map(Number)}}));
+
+const $=id=>document.getElementById(id);
+const EM={pop:'🎤',indie:'🌿',rock:'🎸',rnb:'🌙',hiphop:'🎧',elektronik:'⚡',jazz:'🎷',kpop:'💖',indo:'🌺'};
+let type='',sel=new Set(),seed=1,picks=[],ranked=[],n=15,rid=0,cur=null;const au=new Audio();
+
+$('chips').innerHTML=Object.entries(GN).map(([k,v])=>`<button class="chip" data-g="${k}">${EM[k]} ${v}</button>`).join('');
+$('axes').innerHTML=AX.map((a,i)=>`<div class="ax"><span>${a[0]}</span><div class="seg" data-i="${i}"><button data-l="${a[1]}">${a[3]}</button><button data-l="${a[2]}">${a[4]}</button></div></div>`).join('');
+
+function setType(s){
+  type=s.toUpperCase().replace(/[^A-Z]/g,'').slice(0,4);
+  if($('tin').value!==type)$('tin').value=type;
+  document.querySelectorAll('.seg').forEach((sg,i)=>sg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',type[i]===b.dataset.l)));
+  const t=TYPES[type];
+  $('info').innerHTML=t?`<b>${type} · ${t[0]}</b><em>${t[1]}</em>`:`<em>Ketik 4 huruf atau pilih tiap dimensi di atas.</em>`;
+  $('go').disabled=!t;
+}
+$('tin').oninput=e=>setType(e.target.value);
+$('axes').onclick=e=>{
+  const b=e.target.closest('button');if(!b)return;
+  const segs=[...document.querySelectorAll('.seg')];
+  setType(segs.map((sg,k)=>k==b.parentElement.dataset.i?b.dataset.l:(sg.querySelector('.on')||sg.firstElementChild).dataset.l).join(''));
+};
+$('chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const g=b.dataset.g;sel.has(g)?sel.delete(g):sel.add(g);b.classList.toggle('on')};
+
+/* ---------- Rekomendasi ---------- */
+function rng(n){let s=n>>>0;return()=>{s=(s+0x6D2B79F5)>>>0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function recommend(){
+  const tv=[type[0]==='E'?4:0,type[1]==='N'?4:0,type[2]==='F'?4:0,type[3]==='P'?4:0];
+  const r=rng(seed*7919+[...type].reduce((a,c)=>a+c.charCodeAt(0),0));
+  const pool=SONGS.filter(s=>!sel.size||sel.has(s.g));
+  return pool.map(s=>({s,k:s.v.reduce((a,x,i)=>a+Math.abs(x-tv[i]),0)+r()*3.2})).sort((a,b)=>a.k-b.k).map(x=>x.s);
+}
+const hue=s=>[...s].reduce((a,c)=>(a*31+c.charCodeAt(0))%360,7);
+function stop(){au.pause();document.querySelectorAll('.row.playing').forEach(r=>r.classList.remove('playing'));cur=null}
+au.onended=stop;
+
+/* Preview 30 detik + cover album dari iTunes Search API (tanpa API key) */
+async function preview(s,i,k){
+  try{
+    if(s.pv===undefined){
+      const j=await(await fetch('https://itunes.apple.com/search?media=music&entity=song&limit=5&term='+encodeURIComponent(s.t+' '+s.a))).json();
+      const f=s.a.split(' ')[0].toLowerCase();
+      const r=j.results.find(x=>x.previewUrl&&x.artistName.toLowerCase().includes(f))||j.results.find(x=>x.previewUrl);
+      s.pv=r?r.previewUrl:'';s.img=r?r.artworkUrl100.replace('100x100','300x300'):'';
+    }
+    if(k!==rid)return;
+    const row=$('list').children[i];if(!row)return;
+    if(s.img){const a=row.querySelector('.art');a.style.backgroundImage=`url(${s.img})`;a.firstElementChild.style.display='none'}
+    if(s.pv)row.classList.add('can');
+  }catch(e){s.pv=s.pv===undefined?'':s.pv}
+}
+$('list').onclick=e=>{
+  const row=e.target.closest('.row');if(!row||e.target.closest('.sp'))return;
+  const s=picks[row.dataset.i];
+  if(!s.pv){toast(s.pv===undefined?'Memuat preview…':'Preview belum tersedia untuk lagu ini. Coba buka di Spotify ↗');return}
+  if(cur===row){stop();return}
+  stop();au.src=s.pv;au.play().catch(()=>toast('Browser memblokir audio, coba ketuk lagi.'));cur=row;row.classList.add('playing');
+};
+
+function render(reset=true){
+  stop();if(reset){ranked=recommend();n=15}
+  picks=ranked.slice(0,n);const k=++rid;$('s2').classList.add('has');
+  $('rtype').textContent=type;
+  $('rdesc').textContent=`${TYPES[type][0]} · ${TYPES[type][1]}`;
+  $('rlbl').textContent=`${picks.length} lagu untukmu`+(sel.size?` · ${[...sel].map(g=>GN[g]).join(', ')}`:'')+' · ketuk cover untuk preview';
+  const mk=$('mk');mk.textContent='Buat playlist Spotify';mk.onclick=makePlaylist;mk.disabled=false;
+  $('list').innerHTML=picks.map((s,i)=>{const h=hue(s.t);return`<div class="row" data-i="${i}" style="animation-delay:${Math.min(i,10)*45}ms"><div class="art" style="background:linear-gradient(135deg,hsl(${h},70%,60%),hsl(${(h+45)%360},70%,42%))"><span>${s.t[0]}</span><div class="pl"><svg class="ic" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><div class="eq"><i></i><i></i><i></i></div></div></div><div class="rb"><div class="rt">${s.t}</div><div class="rs">${s.a} · ${GN[s.g]}</div></div><a class="sp" target="_blank" rel="noopener" title="Buka di Spotify" href="https://open.spotify.com/search/${encodeURIComponent(s.t+' '+s.a)}">↗</a></div>`}).join('');
+  picks.forEach((s,i)=>preview(s,i,k));
+  $('more').classList.toggle('hide',n>=ranked.length);
+}
+function show(n){
+  stop();
+  $('s1').classList.toggle('hide',n!==1);$('s2').classList.toggle('hide',n!==2);
+  $('bar1').classList.toggle('hide',n!==1);$('bar2').classList.toggle('hide',n!==2);
+  $('back').style.display=n===2?'block':'none';$('ntitle').textContent=n===2&&innerWidth<1000?'Rekomendasi':'Real You';
+  if(innerWidth<1000)scrollTo(0,0);
+}
+$('go').onclick=()=>{render();show(2);if(token()&&$('auto').checked)makePlaylist()};
+$('back').onclick=()=>show(1);
+$('more').onclick=()=>{n+=10;render(false)};
+const listText=()=>`Real You · ${type} ${TYPES[type][0]}\n\n`+picks.map((s,i)=>`${i+1}. ${s.t} – ${s.a}`).join('\n')+'\n\nby qilakirara';
+$('copy').onclick=async()=>{const t=listText();try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(_){}a.remove()}toast('Daftar lagu disalin ✓')};
+$('txt').onclick=()=>{const u=URL.createObjectURL(new Blob([listText()],{type:'text/plain'}));const a=document.createElement('a');a.href=u;a.download=`real-you-${type}.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)};
+$('shuf').onclick=()=>{seed++;render()};
+let tm;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(tm);tm=setTimeout(()=>t.classList.remove('show'),4500)}
+
+/* ---------- Spotify (PKCE, tanpa server) ---------- */
+const b64=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+async function login(from){
+  const v=b64(crypto.getRandomValues(new Uint8Array(32)));
+  sessionStorage.setItem('v',v);sessionStorage.setItem('st',JSON.stringify({type,g:[...sel],seed,from}));
+  const c=b64(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v)));
+  location.href='https://accounts.spotify.com/authorize?'+new URLSearchParams({client_id:CLIENT_ID,response_type:'code',redirect_uri:REDIRECT,scope:'playlist-modify-private playlist-modify-public',code_challenge_method:'S256',code_challenge:c});
+}
+async function exchange(code){
+  const r=await fetch('https://accounts.spotify.com/api/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({client_id:CLIENT_ID,grant_type:'authorization_code',code,redirect_uri:REDIRECT,code_verifier:sessionStorage.getItem('v')})});
+  const j=await r.json();if(!j.access_token)throw new Error('Login Spotify gagal');
+  sessionStorage.setItem('tk',j.access_token);sessionStorage.setItem('exp',Date.now()+j.expires_in*1000-60000);
+  try{const me=await api('/me');sessionStorage.setItem('nm',me.display_name||'Akun Spotify')}catch(e){sessionStorage.setItem('nm','Akun Spotify')}
+}
+const token=()=>+sessionStorage.getItem('exp')>Date.now()?sessionStorage.getItem('tk'):null;
+function updateConn(){
+  const on=!!token();$('conn').classList.toggle('ok',on);
+  $('ct').textContent=on?'Spotify terhubung ✓':'Hubungkan Spotify';
+  $('cs').textContent=on?(sessionStorage.getItem('nm')||''):'Opsional · playlist otomatis (khusus akun yang didaftarkan pemilik web)';
+  $('cb').textContent=on?'Putuskan':'Hubungkan';$('autor').classList.toggle('hide',!on);
+}
+$('cb').onclick=()=>{
+  if(token()){['tk','exp','nm'].forEach(k=>sessionStorage.removeItem(k));updateConn()}
+  else if(CLIENT_ID.startsWith('ISI_'))toast('Koneksi Spotify belum dikonfigurasi oleh pemilik website.');
+  else login('connect');
+};
+async function api(path,method='GET',body){
+  const r=await fetch('https://api.spotify.com/v1'+path,{method,headers:{Authorization:'Bearer '+token(),'Content-Type':'application/json'},body:body&&JSON.stringify(body)});
+  if(!r.ok){const e=new Error(r.status);e.status=r.status;throw e}
+  return r.json();
+}
+async function makePlaylist(){
+  if(CLIENT_ID.startsWith('ISI_')){toast('Koneksi Spotify belum dikonfigurasi oleh pemilik website.');return}
+  if(!token())return login('mk');
+  const b=$('mk');b.disabled=true;b.textContent='Membuat playlist…';
+  try{
+    const found=[];for(let i=0;i<picks.length;i+=8)found.push(...await Promise.all(picks.slice(i,i+8).map(s=>api(`/search?type=track&limit=1&q=${encodeURIComponent(`track:${s.t} artist:${s.a}`)}`).then(j=>j.tracks.items[0]?.uri).catch(()=>null))));
+    const uris=found.filter(Boolean);
+    if(!uris.length)throw new Error('Lagu tidak ditemukan di Spotify');
+    const pl=await api('/me/playlists','POST',{name:'Real You',description:`Real You · ${type} ${TYPES[type][0]} – dibuat dengan Real You`,public:false});
+    await api(`/playlists/${pl.id}/items`,'POST',{uris});
+    b.textContent=`Buka playlist (${uris.length} lagu)`;b.disabled=false;
+    b.onclick=()=>window.open(pl.external_urls.spotify,'_blank');
+    toast(`Playlist berhasil dibuat dengan ${uris.length} lagu.`);
+  }catch(e){
+    b.disabled=false;b.textContent='Buat playlist Spotify';
+    if(e.status===401){['tk','exp'].forEach(k=>sessionStorage.removeItem(k));login('mk');return}
+    toast(e.status===403?'Playlist otomatis hanya tersedia untuk akun yang didaftarkan pemilik website. Kamu tetap bisa menyalin atau menyimpan daftar lagunya.':'Gagal: '+e.message);
+  }
+}
+$('mk').onclick=makePlaylist;
+
+/* ---------- Init ---------- */
+setType('');
+(async()=>{
+  const p=new URLSearchParams(location.search);
+  if(p.get('code')){
+    try{await exchange(p.get('code'))}catch(e){toast(e.message)}
+    history.replaceState({},'',REDIRECT);
+    const st=JSON.parse(sessionStorage.getItem('st')||'null');
+    if(st){
+      seed=st.seed;st.g.forEach(g=>{sel.add(g);document.querySelector(`[data-g="${g}"]`).classList.add('on')});setType(st.type);
+      if(st.type&&st.from==='mk'){render();show(2);if(token())makePlaylist()}
+      else if(token())toast('Spotify terhubung! Playlist akan dibuat otomatis.');
+    }
+  }else if(p.get('error'))toast('Login Spotify dibatalkan atau ditolak. Kamu tetap bisa menyalin daftar lagunya.');
+  updateConn();
+})();
+</script>
+</body>
+</html>
